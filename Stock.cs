@@ -27,8 +27,7 @@ namespace Stock
                 }
 
             }
-            Console.WriteLine($"BRAPI API returned status code: {response.StatusCode}");
-            return 0.0F;
+            throw new Exception($"BRAPI API was not successful and returned status code: {response.StatusCode}");
         }
     }
 

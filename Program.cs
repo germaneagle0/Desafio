@@ -18,6 +18,7 @@ class Program
         float min = float.Parse(args[1]);
         float max = float.Parse(args[2]);
         if (args.Length == 4) RequestPeriod = int.Parse(args[3]);
+
         // CONFIG FILE EXTRACTION
         Console.WriteLine("Opening configuration file...");
         Config.JSON<Config.ConfigurationEmail> fileHandler = new("./config.json");
@@ -28,7 +29,6 @@ class Program
         // EMAIL SERVER
         Console.WriteLine("Connecting to Gmail API...");
         Email.Gmail sender = new(emailData.PrivateEmailData);
-
         Console.WriteLine("OK!");
 
         // STOCK API SERVER
@@ -49,11 +49,9 @@ class Program
         
         // First Request
         await updater.Update();
-        Console.WriteLine("Updated...");
         while (await timer.WaitForNextTickAsync())
         {
             await updater.Update();
-            Console.WriteLine("Updated...");
         }
     }
 }
